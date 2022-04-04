@@ -1,0 +1,14 @@
+---
+- name: Install dependencies
+  become: yes
+  package:
+    name:
+      - xorriso
+      - gpg
+      - curl
+    state: present
+
+- name: Create working directory
+  file:
+    path: "{{ working_dir }}"
+    state: directory

@@ -1,0 +1,9 @@
+---
+- name: Prepare host system
+  include_tasks: dependencies.yml
+
+- name: Download ISO
+  include_tasks: download.yml
+
+- name: Generate new ISO
+  include_tasks: generate.yml

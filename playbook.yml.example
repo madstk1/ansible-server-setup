@@ -1,0 +1,19 @@
+---
+- name: Server Provisioning
+  hosts: localhost
+  connection: local
+
+  become: no
+  gather_facts: yes
+
+  vars:
+    username: "ubuntu"
+    password: "ubuntu"
+    ssh_keys:
+      - name: "user1"
+        key: "ssh-rsa AAAABBBBCCCC user1@other.computer"
+      - name: "user2"
+        key: "ssh-rsa DDDDEEEEFFFF user2@other.computer"
+
+  roles:
+    - role: homelab
