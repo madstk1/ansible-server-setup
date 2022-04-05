@@ -1,0 +1,13 @@
+---
+docker_deps:
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - python3-pip
+
+docker_pkgs:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-compose

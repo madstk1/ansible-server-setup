@@ -1,0 +1,12 @@
+---
+- name: Create .config-folder
+  become: no
+  file:
+    path: "/home/{{ username }}/.config"
+    state: directory
+
+- name: Install Neovim
+  include_tasks: ./nvim.yml
+
+- name: Clone dotfile-repos
+  include_tasks: ./repos.yml

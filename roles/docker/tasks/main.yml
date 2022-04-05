@@ -1,0 +1,6 @@
+---
+- name: Get OS-variables
+  include_vars: "{{ ansible_facts['distribution'] | lower }}.yml"
+
+- name: Install Docker
+  include_tasks: ./install.yml

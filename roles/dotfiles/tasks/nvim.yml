@@ -1,0 +1,46 @@
+---
+- name: Install Neovim
+  package:
+    state: present
+    name: "neovim"
+
+- name: Install Neovim Python-providers
+  package:
+    state: present
+    name: 
+      - python3-neovim
+
+- name: Set Vim to Neovim
+  alternatives:
+    name: vim
+    link: /usr/bin/vim
+    path: /usr/bin/nvim
+
+- name: Add Neovim tools
+  block:
+    - name: Add Node repo
+      shell:
+        cmd: "curl -sL https://deb.nodesource.com/setup_17.x | bash -"
+
+    - name: Install Yarn GPT key
+      apt_key:
+        url: https://dl.yarnpkg.com/debian/pubkey.gpg 
+        state: present
+
+    - name: Install Yarn repo
+      apt_repository:
+        repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+        state: present
+        filename: yarn
+
+    - name: Install Yarn
+      apt:
+        name: yarn
+        state: present
+
+    - name: Install clang
+      apt:
+        name:
+          - "clang-tools"
+          - "clangd"
+        state: present

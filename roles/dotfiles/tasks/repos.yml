@@ -1,0 +1,47 @@
+---
+- name: Install ZSH
+  become: yes
+  package:
+    state: present
+    name: "zsh"
+
+- name: Install vim-plug
+  become: no
+  shell:
+    cmd: "sh -c 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+          https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'"
+
+- name: Clone dotfile repositories
+  become: no
+  git:
+    dest: "/home/{{ username }}/{{ item }}"
+    repo: "https://git.madstrier.dk/natamo/{{ item }}.git"
+  with_items:
+    - "bin"
+    - "conf"
+
+- name: Install dotfiles
+  become: no
+  block:
+    - name: Install zshrc
+      file:
+        src: "~/conf/zsh/zshrc"
+        dest: "/home/{{ username }}/.zshrc"
+        state: link
+
+    - name: Install nvim.init
+      file:
+        src: "~/conf/nvim"
+        dest: "/home/{{ username }}/.config/nvim"
+        state: link
+
+- name: Clone zsh-autosuggestions
+  become: no
+  git:
+    dest: "/home/{{ username }}/conf/zsh/oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    repo: "https://github.com/zsh-users/zsh-autosuggestions"
+
+- name: Set shell to ZSH
+  become: yes
+  shell:
+    cmd: "usermod --shell /usr/bin/zsh {{ username }}"

@@ -1,0 +1,65 @@
+---
+lvm_volumes:
+  - name: docker
+    volume: "main/docker"
+    mount:
+      state: present
+      fs:    "xfs"
+      dest:  "/var/data/docker"
+      flags: "rw,noatime 0 2"
+
+  - name: torrents
+    volume: "main/torrents"
+    mount:
+      state: present
+      fs:    "ext4"
+      dest:  "/var/data/torrents"
+      flags: "rw,noatime,nodiratime,nosuid,noexec 0 2"
+        
+  - name: music
+    volume: "main/music"
+    mount:
+      state: present
+      fs:    "ext4"
+      dest:  "/var/data/music"
+      flags: "rw,noatime,commit=600 0 2"
+
+  - name: files
+    volume: "main/files"
+    mount:
+      state: present
+      fs:    "ext4"
+      dest:  "/var/data/files"
+      flags: "rw,noatime 0 2"
+
+  - name: git
+    volume: "main/git"
+    mount:
+      state: present
+      fs:    "xfs"
+      dest:  "/var/data/git"
+      flags: "rw,noatime 0 2"
+
+  - name: vm
+    volume: "main/vm"
+    mount:
+      state: present
+      fs:    "ext4"
+      dest:  "/var/data/vm"
+      flags: "rw,noatime,commit=600 0 2"
+
+  - name: log
+    volume: "main/log"
+    mount:
+      state: present
+      fs:    "ext3"
+      dest:  "/var/data/log"
+      flags: "rw,noatime,data=writeback 0 2"
+
+  - name: cache-plex
+    volume: "cache/plex"
+    mount:
+      state: present
+      fs:    "xfs"
+      dest:  "/var/data/cache/plex"
+      flags: "rw,noatime 0 2"
