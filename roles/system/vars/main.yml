@@ -6,7 +6,7 @@ lvm_volumes:
       state: present
       fs:    "xfs"
       dest:  "/var/data/docker"
-      flags: "rw,noatime 0 2"
+      flags: "rw,noatime"
 
   - name: torrents
     volume: "main/torrents"
@@ -14,7 +14,7 @@ lvm_volumes:
       state: present
       fs:    "ext4"
       dest:  "/var/data/torrents"
-      flags: "rw,noatime,nodiratime,nosuid,noexec 0 2"
+      flags: "rw,noatime,nodiratime,nosuid,noexec"
         
   - name: music
     volume: "main/music"
@@ -22,7 +22,7 @@ lvm_volumes:
       state: present
       fs:    "ext4"
       dest:  "/var/data/music"
-      flags: "rw,noatime,commit=600 0 2"
+      flags: "rw,noatime,commit=600"
 
   - name: files
     volume: "main/files"
@@ -30,7 +30,7 @@ lvm_volumes:
       state: present
       fs:    "ext4"
       dest:  "/var/data/files"
-      flags: "rw,noatime 0 2"
+      flags: "rw,noatime"
 
   - name: git
     volume: "main/git"
@@ -38,7 +38,7 @@ lvm_volumes:
       state: present
       fs:    "xfs"
       dest:  "/var/data/git"
-      flags: "rw,noatime 0 2"
+      flags: "rw,noatime"
 
   - name: vm
     volume: "main/vm"
@@ -46,7 +46,7 @@ lvm_volumes:
       state: present
       fs:    "ext4"
       dest:  "/var/data/vm"
-      flags: "rw,noatime,commit=600 0 2"
+      flags: "rw,noatime,commit=600"
 
   - name: log
     volume: "main/log"
@@ -54,7 +54,7 @@ lvm_volumes:
       state: present
       fs:    "ext3"
       dest:  "/var/data/log"
-      flags: "rw,noatime,data=writeback 0 2"
+      flags: "rw,noatime,data=writeback"
 
   - name: cache-plex
     volume: "cache/plex"
@@ -62,4 +62,4 @@ lvm_volumes:
       state: present
       fs:    "xfs"
       dest:  "/var/data/cache/plex"
-      flags: "rw,noatime 0 2"
+      flags: "rw,noatime"

@@ -43,39 +43,24 @@
       - "brotli"
       - "yt-dlp"
 
-- name: Check if volume exists
-  when: item.mount is defined and item.mount.state == 'present'
+- name: Create folders for volumes
   with_items: "{{ lvm_volumes }}"
   no_log: true
-  stat:
-    path: "/dev/{{ item.volume }}"
-  register: "lvm_volume_exists"
-
-- name: Add volume to /etc/fstab
-  with_items: "{{ lvm_volume_exists.results }}"
-  when: item.stat.exists | bool
-  no_log: true
-  lineinfile:
-    path: /etc/fstab
-    line: "/dev/{{ item.item.volume }} {{ item.item.mount.dest }} {{ item.item.mount.fs }} {{ item.item.mount.flags }}"
-
-- name: Create folders for volumes
-  with_items: "{{ lvm_volume_exists.results }}"
-  when: item.stat.exists | bool
-  no_log: true
   file:
-    path: "{{ item.item.mount.dest }}"
+    path: "{{ item.mount.dest }}"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: "0755"
 
 - name: Mount volume
-  with_items: "{{ lvm_volume_exists.results }}"
-  when: item.stat.exists | bool
+  with_items: "{{ lvm_volumes }}"
   no_log: true
   mount:
-    src: "/dev/{{ item.item.volume }}"
-    path: "{{ item.item.mount.dest }}"
-    fstype: "{{ item.item.mount.fs }}"
     state: mounted
+    src: "/dev/{{ item.volume }}"
+    path: "{{ item.mount.dest }}"
+    fstype: "{{ item.mount.fs }}"
+    opts: "{{ item.mount.flags }}"
+    dump: "0"
+    passno: "2"
